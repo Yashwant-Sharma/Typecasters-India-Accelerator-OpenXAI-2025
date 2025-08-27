@@ -1,0 +1,21 @@
+installing dependencies
+
+1. In Windows 
+ 
+ install-windows.ps1
+ 
+Open PowerShell in your project folder.
+
+Run:
+
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\install-windows.ps1
+
+2. In Ubuntu/Linux
+
+Open a terminal in your project folder.
+
+Make the script executable:
+
+chmod +x install-ubuntu.sh
+./install-ubuntu.sh
