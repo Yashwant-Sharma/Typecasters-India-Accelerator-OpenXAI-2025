@@ -1,21 +1,21 @@
-// utils/tfModel.ts
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
-import "@tensorflow/tfjs"; // loads TensorFlow.js backend
+import "@tensorflow/tfjs";
 
 let model: cocoSsd.ObjectDetection | null = null;
 
-// Load the model (only once)
 export async function loadModel() {
   if (!model) {
     model = await cocoSsd.load();
-    console.log("✅ TensorFlow model loaded");
+    console.log("✅ Model loaded");
   }
-  return model;
 }
 
-// Run detection
-export async function detectObjects(video: HTMLVideoElement) {
+export async function detectObjects(element: HTMLVideoElement) {
+  if (!model) await loadModel();
   if (!model) return [];
-  const predictions = await model.detect(video);
-  return predictions;
+
+  // Check valid video size
+  if (element.videoWidth === 0) return [];
+
+  return await model.detect(element);
 }
