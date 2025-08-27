@@ -95,15 +95,23 @@ export default function Home() {
           style={{ position: "absolute", top: 0, left: 0 }}
         />
       </div>
+     
 
-      <h2>Detections:</h2>
-      <ul>
-        {detections.map((item, i) => (
-          <li key={i}>
-            {item.class} ({Math.round(item.score * 100)}%)
-          </li>
-        ))}
-      </ul>
+    <h2>Detections:</h2>
+<p>Total objects detected: {detections.length}</p>
+<ul>
+  {Object.entries(
+    detections.reduce((acc, item) => {
+      acc[item.class] = (acc[item.class] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>)
+  ).map(([cls, count]) => (
+    <li key={cls}>
+      {cls}: {count}
+    </li>
+  ))}
+ </ul>
     </div>
+
   );
 }
